@@ -78,7 +78,7 @@ export default {
             inputText: '',
             saveFileModalOpen: false,
             shareAvailable: false,
-            code: '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n',
+            code: '\n\n\n\n\n\n\n\n\n\n\n\n\n\n',
             javascript: {}
         }
     },
