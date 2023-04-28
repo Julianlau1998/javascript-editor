@@ -13,6 +13,7 @@
                     class="input mt-2"
                     max="255"
                     min="1"
+                    @keyup.enter="onSubmit"
                     required
                     autofocus
                 >
@@ -22,7 +23,7 @@
                 </button>
                 <button type="submit" @click="onSubmit" class="button is-primary pl-4">
                     Save
-                    <i class="fas fa-save pl-1 pr-2" /> 
+                    <i class="fas fa-save pl-1 pr-2" />
                 </button>
             </form>
         </div>

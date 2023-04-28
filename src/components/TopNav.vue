@@ -29,7 +29,7 @@
                               Get Rid Of Ads
                           </span>
                     </span>-->
-                    <span v-if="!iOS">
+                    <span v-if="!iOS && !blocked">
                           <div class="hr" />
                           <span
                               @click="rateApp"
@@ -72,7 +72,8 @@ export default {
         return {
             settings: false,
             shareAvailable: false,
-            playBillingSupported: false
+            playBillingSupported: false,
+            blocked: true
         }
     },
     created () {

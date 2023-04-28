@@ -4,7 +4,7 @@
             <transition name="fade" mode="out-in">
                 <span :key="1">
                   <label class="label is-pointer noselect button is-primary">
-                    <input @change="fileInput" accept=".txt, .md" type="file" required/>
+                    <input @change="fileInput" accept=".txt, .js" type="file" required/>
                     <span>
                       <i class="fas fa-upload pl-1 pr-2" /> Import
                     </span>
@@ -25,13 +25,15 @@
         <br>
         <transition name="fade" mode="out-in">
             <div :key="1">
-                <textarea
-                    v-model="inputText"
-                    class="is-editor pt-5 pb-5 is-primary mt-1"
-                    placeholder="Type your text here"
-                />
+                <prism-editor
+                    class="my-editor"
+                    v-model="code"
+                    :highlight="highlighter"
+                    line-numbers />
             </div>
         </transition>
+
+        <div class="is-bottom-nav" />
 
 <!--        <button
             v-if="iosLiteApp"
@@ -51,11 +53,19 @@
 
 <script>
 import SaveModal from '@/components/modals/SaveModal'
+import { PrismEditor } from 'vue-prism-editor';
+import 'vue-prism-editor/dist/prismeditor.min.css'; // import the styles somewhere
+import { highlight, languages } from "prismjs/components/prism-core";
+import Prism from "prismjs"
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/themes/prism-tomorrow.css';
 
 export default {
     name: 'Editor',
     components: {
-        SaveModal
+        SaveModal,
+        PrismEditor
     },
     props: {
         share: {
@@ -67,13 +77,15 @@ export default {
         return  {
             inputText: '',
             saveFileModalOpen: false,
-            shareAvailable: false
+            shareAvailable: false,
+            code: '\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n',
+            javascript: {}
         }
     },
     watch: {
         inputFile (val) {
             if (val != '') {
-                this.inputText = val
+                this.code = val
                 this.$store.state.inputFile = ''
             }
         },
@@ -104,7 +116,7 @@ export default {
             this.shareFile()
         },
         createFileLink (fileName) {
-            const file = new Blob([this.inputText], { type: "data:text/csv;charset=utf-8" }, `${fileName}.txt`)
+            const file = new Blob([this.code], { type: "data:text/csv;charset=utf-8" }, `${fileName}.js`)
             return window.URL.createObjectURL(file)
         },
         downloadFile (fileName) {
@@ -112,14 +124,14 @@ export default {
 
             let hiddenElement = document.createElement('a')
             hiddenElement.href = link
-            hiddenElement.download = `${fileName}.txt`
+            hiddenElement.download = `${fileName}.js`
             hiddenElement.click();
             this.saveFileModalOpen = false
         },
         shareFile () {
             if (this.inputText.length) {
                 navigator.share({
-                    "title": 'txt File',
+                    "title": 'js File',
                     "text": this.inputText
                 })
             }
@@ -127,9 +139,15 @@ export default {
         fileInput (event) {
           const file = event.target.files[0];
           const reader = new FileReader();
-          reader.onload = e => this.inputText =  e.target.result
+          reader.onload = e => this.code =  e.target.result
           reader.readAsText(file);
           this.settings = false
+        },
+        highlighter(code) {
+          if (Prism.languages.js) {
+            this.javascript = Prism.languages.js
+          }
+          return highlight(code, this.javascript, ''); // languages.<insert language> to return html with markup
         },
     }
 }
