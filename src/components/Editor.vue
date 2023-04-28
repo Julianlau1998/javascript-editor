@@ -129,10 +129,10 @@ export default {
             this.saveFileModalOpen = false
         },
         shareFile () {
-            if (this.inputText.length) {
+            if (this.code.length) {
                 navigator.share({
                     "title": 'js File',
-                    "text": this.inputText
+                    "text": this.code
                 })
             }
         },
