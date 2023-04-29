@@ -85,6 +85,10 @@ blockquote {
     border: 1px solid $primary !important;
 }
 
+.prism-editor-wrapper .prism-editor__editor, .prism-editor-wrapper .prism-editor__textarea {
+    word-break: break-all;
+}
+
 textarea {
     border: none;
 }
