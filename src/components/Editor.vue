@@ -53,13 +53,13 @@
 
 <script>
 import SaveModal from '@/components/modals/SaveModal'
-import { PrismEditor } from 'vue-prism-editor';
-import 'vue-prism-editor/dist/prismeditor.min.css'; // import the styles somewhere
-import { highlight, languages } from "prismjs/components/prism-core";
+import { PrismEditor } from 'vue-prism-editor'
+import 'vue-prism-editor/dist/prismeditor.min.css'
+import { highlight, languages } from "prismjs/components/prism-core"
 import Prism from "prismjs"
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/themes/prism-tomorrow.css';
+import 'prismjs/components/prism-clike'
+import 'prismjs/components/prism-javascript'
+import 'prismjs/themes/prism-tomorrow.css'
 
 export default {
     name: 'Editor',
@@ -147,7 +147,7 @@ export default {
           if (Prism.languages.js) {
             this.javascript = Prism.languages.js
           }
-          return highlight(code, this.javascript, ''); // languages.<insert language> to return html with markup
+          return highlight(code, this.javascript, '')
         },
     }
 }
