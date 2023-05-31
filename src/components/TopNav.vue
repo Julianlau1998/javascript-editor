@@ -9,7 +9,7 @@
             <div class="column settingsWrapper">
                 <div v-if="settings" class="settingsItems settings">
                     <label v-if="helpAvailable" class="label is-pointer setting noselect">
-                        <input @change="fileInput" accept=".txt" type="file" required/>
+                        <input @change="fileInput" accept=".txt, .js" type="file" required/>
                         <span>
                             Import File
                         </span>
@@ -20,7 +20,7 @@
                             Share File
                         </span>
                     </span>
-<!--                    <span v-if="iosLiteApp">
+                    <span v-if="iosLiteApp">
                           <div class="hr" />
                           <span
                               @click="webviewTrigger"
@@ -28,7 +28,7 @@
                           >
                               Get Rid Of Ads
                           </span>
-                    </span>-->
+                    </span>
                     <span v-if="!iOS && !blocked">
                           <div class="hr" />
                           <span
@@ -83,7 +83,7 @@ export default {
     },
     computed: {
       iosLiteApp () {
-        return window.webkit && window.webkit.messageHandlers
+        return window.webkit && window.webkit.messageHandlers.openAppStore
       },
       iOS () {
         return this.$store.state.iOS
@@ -116,11 +116,9 @@ export default {
             this.$router.push('/')
         },
         webviewTrigger () {
-          if (this.iosLiteApp && window.webkit.messageHandlers.webviewTrigger) {
-            window.webkit.messageHandlers.webviewTrigger.postMessage({
+            window.webkit.messageHandlers.openAppStore.postMessage({
               "message": 'openAppStore'
-            });
-          }
+            })
         },
         rateApp () {
           window.location.href = 'https://play.google.com/store/apps/details?id=app.txt_editor_jl.com'
