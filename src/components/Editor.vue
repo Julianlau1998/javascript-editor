@@ -35,13 +35,12 @@
 
         <div class="is-bottom-nav" />
 
-<!--        <button
-            v-if="iosLiteApp"
+        <button
             @click="webviewTrigger"
-            class="button is-ads-button is-border-secondary mt-5"
+            class="button is-ads-button is-border-secondary"
         >
-          Get Rid of ads
-        </button>-->
+          Get rid of ads
+        </button>
 
         <SaveModal
             v-if="saveFileModalOpen"
@@ -101,7 +100,7 @@ export default {
             return this.$store.state.inputFile
         },
         iosLiteApp () {
-          return window.webkit && window.webkit.messageHandlers
+          return window.webkit && window.webkit.messageHandlers.openAppStore
         }
     },
     created () {
@@ -148,6 +147,11 @@ export default {
             this.javascript = Prism.languages.js
           }
           return highlight(code, this.javascript, '')
+        },
+        webviewTrigger () {
+          window.webkit.messageHandlers.openAppStore.postMessage({
+            "message": 'openAppStore'
+          })
         },
     }
 }
