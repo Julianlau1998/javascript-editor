@@ -36,6 +36,7 @@
         <div class="is-bottom-nav" />
 
         <button
+            v-if="iosLiteApp"
             @click="webviewTrigger"
             class="button is-ads-button is-border-secondary"
         >
