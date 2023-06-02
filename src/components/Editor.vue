@@ -39,7 +39,7 @@
             @click="webviewTrigger"
             class="button is-ads-button is-border-secondary"
         >
-          Get rid of ads
+          Get Rid Of Ads
         </button>
 
         <SaveModal
