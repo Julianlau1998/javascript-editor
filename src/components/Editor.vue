@@ -134,6 +134,9 @@ export default {
                     "title": 'js File',
                     "text": this.code
                 })
+                .then(() => {
+                    this.addClick()
+                })
             }
         },
         fileInput (event) {
@@ -141,6 +144,7 @@ export default {
           const reader = new FileReader();
           reader.onload = e => this.code =  e.target.result
           reader.readAsText(file);
+          this.addClick()
           this.settings = false
         },
         highlighter(code) {
@@ -154,6 +158,9 @@ export default {
             "message": 'openAppStore'
           })
         },
+        addClick () {
+            this.$emit('addClick')
+        }
     }
 }
 </script>
